@@ -1,18 +1,25 @@
+// imports
 const express = require("express");
-const dbConnection = require("./config/dbConnection");
-const errorHandler = require("./middlewares/errorhandler");
 const app = express();
+const connectDb = require("./config/dbConnection");
+const errorHandler = require("./middlewares/errorHandler");
 const dotenv = require("dotenv").config();
-const port = process.env.PORT || 5000;
 
-dbConnection();
+// db connection
+connectDb();
+
+// port
+const port = process.env.PORT || 5000;
 
 // middlewares
 app.use(express.json());
 app.use(errorHandler);
-app.use("/api/v1/contacts", require("./routes/contactsRoute"));
-app.use("/api/v1/users", require("./routes/userRoute"));
 
-app.listen(port, (req, res) => {
-  console.log(`server is running on port ${port}`);
+// routes
+app.use("/api/contacts", require("./routes/contactRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+
+// listening to port
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
