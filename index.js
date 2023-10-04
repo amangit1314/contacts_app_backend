@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const connectDb = require("./config/dbConnection");
 const errorHandler = require("./middlewares/errorHandler");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 // db connection
 connectDb();
